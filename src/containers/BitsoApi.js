@@ -6,7 +6,6 @@ import Row from 'react-bootstrap/Row';
 
 
 function BtxItem (book) {
-    console.log(book);
     return book ? (
         Object.values(book).map((book) => {
             return(
