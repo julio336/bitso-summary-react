@@ -5,6 +5,41 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
 
+function BtxItem (book) {
+    console.log(book);
+    return book ? (
+        Object.values(book).map((book) => {
+            return(
+            <>
+                <Col md="4">
+                    <Card style={{ width: '18rem' }}>
+                        <Card.Body>
+                            <h1>{book.book}</h1>
+                            <h2>${book.last}</h2>
+                            <Row>
+                                <Col md="6">
+                                    <h6 style={{color: "red"}}>Low: ${book.low}</h6>
+                                </Col>
+                                <Col md="6">
+                                    <h6 style={{color: "green"}}>High: ${book.high}</h6>
+                                </Col>
+                                <Col md="6">
+                                    <h6>Bid: ${book.bid}</h6>
+                                </Col>
+                                <Col md="6">
+                                    <h6>Ask: ${book.ask}</h6>
+                                </Col>
+                            </Row>
+                            
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </>
+            )
+        })
+    ):null;
+};
+
 class BitsoApi extends React.Component{
     state = {
         stateBooks: [],
@@ -34,41 +69,13 @@ class BitsoApi extends React.Component{
           }
     }
           render() {
-            console.log(this.state);
-            return this.state ? (
-               this.state.stateBooks.map((book) => {
-                   console.log(book);
-                       return book ? (
-                        <>
-                        <Col md="4">
-                            <Card style={{ width: '18rem' }}>
-                                <Card.Body>
-                                    <h1>{book.book}</h1>
-                                    <h2>${book.last}</h2>
-                                    <Row>
-                                        <Col md="6">
-                                            <h6 style={{color: "red"}}>Low: ${book.low}</h6>
-                                        </Col>
-                                        <Col md="6">
-                                            <h6 style={{color: "green"}}>High: ${book.high}</h6>
-                                        </Col>
-                                        <Col md="6">
-                                            <h6>Bid: ${book.bid}</h6>
-                                        </Col>
-                                        <Col md="6">
-                                            <h6>Ask: ${book.ask}</h6>
-                                        </Col>
-                                    </Row>
-                                    
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                        </>
-                       ) : null;
-                   })
-           ) : null;
+            return(
+                <>
+                    {this.state.stateBooks.map((book) => <BtxItem book={book}/>)}
+                </>
+           );
+           
         }
-    
 };
 
 export default BitsoApi;
