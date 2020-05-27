@@ -12,14 +12,7 @@ function App() {
    
     <Navbar bg="dark" variant="dark">
       <Navbar.Brand href="#home">
-        <img
-          alt=""
-          src="/logo.svg"
-          width="30"
-          height="30"
-          className="d-inline-block align-top"
-        />{' '}
-        Bitso-Summary
+       React-App | Bitso-Summary
       </Navbar.Brand>
     </Navbar>
     <Container>
