@@ -71,7 +71,7 @@ class BitsoApi extends React.Component{
             return(
                 <>
                     <Col md="12">
-                        <Col md={{ span: 4, offset: 4 }} sm="12">
+                        <Col md={{ span: 6, offset: 3 }} sm="12">
                             <Alert variant="success">
                                 <Alert.Heading>Last update: {currentDate}</Alert.Heading>
                             </Alert>
