@@ -3,7 +3,8 @@ import axios from 'axios';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-
+import moment from 'moment';
+import Alert from 'react-bootstrap/Alert';
 
 function BtxItem (book) {
     return book ? (
@@ -44,7 +45,7 @@ class BitsoApi extends React.Component{
         stateBooks: [],
     };
 
-    async componentDidMount(){
+    componentDidMount(){
         const books = [
             "btc_mxn", "btc_usd", "tusd_mxn", "eth_mxn", "xrp_mxn", "ltc_mxn" , "mana_mxn", "gnt_mxn", "bat_mxn", "dai_mxn"
         ];
@@ -53,27 +54,32 @@ class BitsoApi extends React.Component{
         for (const [index, value] of books.entries()) {
             const newLocal = "XMLHttpRequest";
 
-            const [Response] = await Promise.all([
-                axios.get(url+value, {
-                    mode: 'no-cors',
-                    secure: false,
-                    headers:{
-                        "X-Requested-With": newLocal
-                    } 
-                })]);
-                this.setState({ 
-                    stateBooks: this.state.stateBooks.concat([Response.data.payload])
-              })
+            axios.get(url+value, {
+                mode: 'no-cors',
+                secure: false,
+                headers:{
+                    "X-Requested-With": newLocal
+                } 
+            }).then(result => {
+                this.setState({stateBooks: this.state.stateBooks.concat([result.data.payload])});
+            })
 
-          }
+        }
     }
-          render() {
+        render() {
+            const currentDate =  moment().format('MMMM Do YYYY, h:mm:ss a');
             return(
                 <>
+                    <Col md="12">
+                        <Col md={{ span: 4, offset: 4 }} sm="12">
+                            <Alert variant="success">
+                                <Alert.Heading>Last update: {currentDate}</Alert.Heading>
+                            </Alert>
+                        </Col>
+                    </Col>
                     {this.state.stateBooks.map((book) => <BtxItem book={book}/>)}
                 </>
-           );
-           
+           )
         }
 };
 
