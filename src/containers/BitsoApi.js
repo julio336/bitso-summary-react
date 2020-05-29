@@ -3,6 +3,7 @@ import axios from 'axios';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import Spinner from 'react-bootstrap/Spinner';
 import moment from 'moment';
 import Alert from 'react-bootstrap/Alert';
 
@@ -41,19 +42,22 @@ function BtxItem (book) {
 };
 
 class BitsoApi extends React.Component{
-    state = {
-        stateBooks: [],
-    };
+    constructor(){
+        super();
+        this.state = {
+            stateBooks: [],
+            isLoading: true,
+        };
+    }
 
-    componentDidMount(){
+    componentWillMount(){
+        
         const books = [
             "btc_mxn", "btc_usd", "tusd_mxn", "eth_mxn", "xrp_mxn", "ltc_mxn" , "mana_mxn", "gnt_mxn", "bat_mxn", "dai_mxn"
         ];
-        
         const url = "https://cors-anywhere.herokuapp.com/https://api.bitso.com/v3/ticker/?book="
         for (const [index, value] of books.entries()) {
             const newLocal = "XMLHttpRequest";
-
             axios.get(url+value, {
                 mode: 'no-cors',
                 secure: false,
@@ -61,25 +65,42 @@ class BitsoApi extends React.Component{
                     "X-Requested-With": newLocal
                 } 
             }).then(result => {
-                this.setState({stateBooks: this.state.stateBooks.concat([result.data.payload])});
+                this.setState({stateBooks: this.state.stateBooks.concat([result.data.payload]),
+                isLoading: false}
+                );
             })
 
         }
     }
         render() {
-            const currentDate =  moment().format('MMMM Do YYYY, h:mm:ss a');
-            return(
-                <>
-                    <Col md="12">
-                        <Col md={{ span: 6, offset: 3 }} sm="12">
-                            <Alert variant="success">
-                                <Alert.Heading>Last update: {currentDate}</Alert.Heading>
-                            </Alert>
+            console.log(this.state.isLoading);
+            if (this.state.isLoading) {
+                return(
+                    <>
+                        <Col md={{span:2, offset:5}} sm="12">
+                            <Spinner animation="border" role="status">
+                                <span className="sr-only">Loading...</span>
+                            </Spinner>
                         </Col>
-                    </Col>
-                    {this.state.stateBooks.map((book) => <BtxItem book={book}/>)}
-                </>
-           )
+                    </>
+                );
+            }else{
+                
+
+                const currentDate =  moment().format('MMMM Do YYYY, h:mm:ss a');
+                return(
+                    <>
+                        <Col md="12">
+                            <Col md={{ span: 6, offset: 3 }} sm="12">
+                                <Alert variant="success">
+                                    <Alert.Heading>Last update: {currentDate}</Alert.Heading>
+                                </Alert>
+                            </Col>
+                        </Col>
+                        {this.state.stateBooks.map((book) => <BtxItem book={book}/>)}
+                    </>
+            )
+            }
         }
 };
 
