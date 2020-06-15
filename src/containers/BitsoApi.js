@@ -78,7 +78,7 @@ class BitsoApi extends React.Component{
             const books = [
                 "btc_mxn", "btc_usd", "tusd_mxn", "eth_mxn", "xrp_mxn", "ltc_mxn" , "mana_mxn", "gnt_mxn", "bat_mxn", "dai_mxn"
             ];
-            const url = "https://cors-anywhere.herokuapp.com/https://api-dev.bitso.com/v3/ticker/?book="
+            const url = "https://cors-anywhere.herokuapp.com/https://api.bitso.com/v3/ticker/?book="
             for (const [index, value] of books.entries()) {
                 const newLocal = "XMLHttpRequest";
                 axios.get(url+value, {
