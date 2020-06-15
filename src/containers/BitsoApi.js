@@ -62,7 +62,6 @@ class BitsoApi extends React.Component{
         this.setState({
             currentCount: this.state.currentCount - 1
         })
-        console.log(this.state.currentCount);
         if(this.state.currentCount === 1) { 
             console.log(this.state);
             this.state.stateBooks = [];
@@ -127,20 +126,20 @@ class BitsoApi extends React.Component{
                 );
             }else{
 
-                const currentDate =  moment().format('MMMM Do YYYY, h:mm:ss a');
+                const currentDate =  moment().format('MMMM Do YYYY, h:mm a');
                 return(
                     <>
-                        <Col md={{ span: 4, offset:2}}>
+                        <Col md={{ span: 6, offset:2}}>
                             <Alert variant="success">
                                 <Alert.Heading>Last update: {currentDate}</Alert.Heading>
                             </Alert>
                         </Col>
-                            <Col md={{ span: 6}}>   
-                            <Button onClick={() => { 
+                            <Col md={{ span: 4}}>   
+                            <Button size="lg" onClick={() => { 
                                 this.state.isLoading = true;
                                 this.state.stateBooks = [];
                                 this.forceUpdateHandler();
-                                }}>Update
+                                }} style={{verticalAlign:"text-top"}}>Update
                             </Button>
                         </Col>
                         {this.state.stateBooks.map((book) => <BtxItem book={book}/>)}
