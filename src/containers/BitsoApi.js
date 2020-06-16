@@ -54,7 +54,7 @@ class BitsoApi extends React.Component{
         this.state = {
             stateBooks: [],
             isLoading: true,
-            currentCount: 60
+            currentCount: 600
         };
     }
 
@@ -66,7 +66,7 @@ class BitsoApi extends React.Component{
             console.log(this.state);
             this.state.stateBooks = [];
             this.state.isLoading = true;
-            this.state.currentCount = 60;
+            this.state.currentCount = 600;
             this.intervalId = setInterval(this.timer.bind(this), 1000);
             this.forceUpdateHandler();
             clearInterval(this.intervalId);
