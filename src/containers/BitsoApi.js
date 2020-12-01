@@ -76,7 +76,10 @@ class BitsoApi extends React.Component{
     forceUpdateHandler(){
         if (this.state.isLoading){
             const books = [
-                "btc_mxn", "btc_usd", "tusd_mxn", "eth_mxn", "xrp_mxn", "ltc_mxn" , "mana_mxn", "gnt_mxn", "bat_mxn", "dai_mxn"
+                "btc_mxn", "btc_usd", "tusd_mxn", "eth_mxn", "xrp_mxn", 
+                "ltc_mxn" , "dai_mxn", "btc_usd", "xrp_usd", "eth_usd"
+                ""
+
             ];
             const url = "https://cors-anywhere.herokuapp.com/https://api.bitso.com/v3/ticker/?book="
             for (const [index, value] of books.entries()) {
